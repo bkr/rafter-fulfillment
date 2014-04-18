@@ -48,11 +48,10 @@ rejected_order = @order.reject(Fulfillment::Order::REJECT_OUT_OF_STOCK)
 ```
 
 Possible rejected\_codes are as follows:
-```ruby
-REJECT_CODE_BAD_ORDER_INFO = 1 # invalid order information
-REJECT_CODE_GENERIC = 2
-REJECT_CODE_OUT_OF_STOCK = 3 # fulfillment provider is temporarily out of stock
-```
+
+* ```REJECT_CODE_BAD_ORDER_INFO``` invalid order information
+* ```REJECT_CODE_GENERIC``` miscellaneous rejection
+* ```REJECT_CODE_OUT_OF_STOCK``` fulfillment provider is temporarily out of stock
 
 ### Fulfillment::Order.processing\_transition(client, public_id)
 Moves a ready order into the processing state.
