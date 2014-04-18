@@ -1,10 +1,5 @@
 # Rafter Fulfillment Client
 
-## Available methods
-
-The following are the methods available for each of the given endpoint services
-of the standalone v1 fulfillment API.
-
 ## Examples
 
 Please note that the examples provided below are intended to be an interaction blueprint and are subject to change.
