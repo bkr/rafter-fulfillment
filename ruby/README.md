@@ -152,13 +152,12 @@ rejected_order_item = @order_item.reject(rejected_code)
 ```
 
 Possible rejected\_codes are as follows:
-```ruby
-GENERIC_REJECTION = 1 # un-categorized rejection reason
-OUT_OF_STOCK_REJECTION = 2 # fulfillment provider is temporarily out of stock
-ITEM_NOT_STOCKED_REJECTION = 3 # fulfillment provider does not know about this item at all
-RESERVE_EXHAUSTED_REJECTION = 4
-INVALID_QUANTITY_REJECTION = 5
-```
+
+* ```GENERIC_REJECTION``` un-categorized rejection reason
+* ```OUT_OF_STOCK_REJECTION``` fulfillment provider is temporarily out of stock
+* ```ITEM_NOT_STOCKED_REJECTION``` fulfillment provider does not know about this item at all
+* ```RESERVE_EXHAUSTED_REJECTION```
+* ```INVALID_QUANTITY_REJECTION```
 
 # Shipment methods
 
