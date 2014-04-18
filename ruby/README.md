@@ -16,8 +16,8 @@ To initialize the client do the following in Ruby:
 @client = Fulfillment::Client.new(:api_key => 'API-KEY', :host => 'FULFILLMENT-HOST')
 ```
 
-```API-KEY``` will be given to you by your Rafter technical contact.
-```FULFILLMENT-HOST``` will be fulfillment-service.rafter.com for Rafter's production environment.
+* ```API-KEY``` will be given to you by your Rafter technical contact.
+* ```FULFILLMENT-HOST``` will be fulfillment-service.rafter.com for Rafter's production environment.
 
 # Order methods
 
