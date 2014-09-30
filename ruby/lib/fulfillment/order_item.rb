@@ -32,11 +32,12 @@ module Fulfillment
     class << self
 
       ##
-      # Acknowledge quantites accepted / rejected of the given FulfillmentOrderItem based on the FulfillmentOrder public ID 
+      # Acknowledge quantites accepted / rejected of the given FulfillmentOrderItem based on the FulfillmentOrder public ID
       # and the FulfillmentOrderItem public ID.
       # Accepted and Rejected quantities must be present in the acknowledgements hash
       def acknowledge(client, order_public_id, order_item_public_id, acknowledgements)
-        if acknowledgements["quantity_accepted"].nil? || acknowledgements["quantity_rejected"].nil?
+        payload = HashWithIndifferentAccess.new(acknowledgements)
+        if payload[:quantity_accepted].nil? || payload[:quantity_rejected].nil?
           raise ArgumentError.new("Accepted and Rejected quantities must be present in the acknowledgements hash.")
         end
 
@@ -86,12 +87,12 @@ module Fulfillment
             client.configure_http(curl)
             client.set_request_page(curl, page_num)
           end
-          
+
           raise Fulfillment::ClientException.new("Could not load index of items for order #{order_public_id}: \n\n Response Body:\n #{curl.body_str}") unless curl.response_code == 200
-          
+
           order_item_result_array = JSON.parse(curl.body_str)
           order_items = []
-          order_item_result_array.each do |ira| 
+          order_item_result_array.each do |ira|
             order_item = new(client, ira)
             order_item.order_public_id = order_public_id
             order_items << order_item
@@ -100,7 +101,7 @@ module Fulfillment
           Fulfillment::PagingEnvelope.envelop(curl, order_items)
         end
       end
-      
+
       def show(client, order_public_id, order_item_public_id)
         curl = Curl::Easy.http_get(client.build_auth_url("/orders/#{order_public_id}/items/#{order_item_public_id}")) do |curl|
           client.configure_http(curl)
@@ -112,7 +113,7 @@ module Fulfillment
         order_item.order_public_id = order_public_id
         order_item
       end
-          
+
     end
   end
 end

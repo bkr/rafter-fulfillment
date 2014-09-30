@@ -133,6 +133,29 @@ describe Fulfillment::OrderItem do
           order_item.quantity_accepted.should eq 2
           order_item.quantity_rejected.should eq 3
         end
+
+        it 'accepts symbol keys too' do
+          Curl::Easy.
+            should_receive(:http_put).
+            with(
+              "http://localhost:3000/orders/#{@order_public_id}/items/#{@order_item_id}/acknowledge",
+              {
+                quantity_accepted: 2,
+                quantity_rejected: 1
+              }.to_json
+            ).and_return(@curl)
+          order_item = Fulfillment::OrderItem.acknowledge(
+            @client,
+            @order_public_id,
+            @order_item_id,
+            {
+              quantity_accepted: 2,
+              quantity_rejected: 1
+            }
+          )
+          order_item.quantity_accepted.should eq 2
+          order_item.quantity_rejected.should eq 3
+        end
       end
     end
 
@@ -142,6 +165,7 @@ describe Fulfillment::OrderItem do
         expect {Fulfillment::OrderItem.acknowledge(@client, @order_public_id, @order_item_id, {"quantity_accepted" => 2})}.to raise_error(ArgumentError)
       end
     end
+
   end
 
   describe ".reject" do
